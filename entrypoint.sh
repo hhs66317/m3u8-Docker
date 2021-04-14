@@ -22,7 +22,8 @@ function build {
   do
     readarray -d '|' -t item_arr <<<"$line"
 
-    m3u8_path="${item_arr[1]}"
+    # m3u8_path="${item_arr[1]}"
+    m3u8_path=`echo ${item_arr[1]} | tr -d "\n"`
     mp4_path="${RECORDINGS_DIR}/${item_arr[0]}"
 
     echo "mp4_path: ${mp4_path}"
