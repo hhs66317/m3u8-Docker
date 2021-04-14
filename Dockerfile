@@ -1,9 +1,11 @@
-FROM alpine:latest
+FROM alpine
 
-RUN apk add --no-cache ca-certificates ffmpeg libva-intel-driver inotify-tools bash
+COPY entrypoint.sh /
 
-RUN mkdir /usr/app
-WORKDIR /usr/app
-COPY run.sh .
+RUN apk update \
+    && apk add --no-cache ca-certificates ffmpeg libva-intel-driver inotify-tools bash \
+    && chmod +x /entrypoint.sh \
+    && rm -rf /var/cache/apk/* \
+    && rm -rf /tmp/*
 
-ENTRYPOINT ["./run.sh"]
+CMD /entrypoint.sh
